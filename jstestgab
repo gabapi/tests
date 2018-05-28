@@ -1,0 +1,192 @@
+1
+console.log(1 === '1') 
+answer:False
+###########################################################################################################################################################
+2
+difference between var, let, const
+answer:
+var:globally declared variable that can be defined within the code
+let:let is variable that should be defined and used within a scope or a function , and unlike var it cannot be redeclared but can be redefined
+const:const is a constant value it cannot be redeclared or redefined and can be used globally..
+
+####################################################################################################################################################
+3
+let i = 5
+i--;
+console.log(i);
+answer: 4
+function F(x){
+  this.x = x;
+}
+######################################################################################################################################
+4
+var inst = new F(3);
+var result = inst.getSumm(2); // => 5
+
+console.log(result) // => 5
+console.log(inst.x) // => undefined
+answer: error getSunn is not a defined function
+####################################################################################################################################
+5
+var arr = []
+console.log(Boolean(arr.length));
+answer:False
+######################################################################################################################################################
+6
+apply, call, slice, splice, shift, split, join, reverse, replace, filter, find, reduce, Prototype?
+answer:
+	apply:a method that pairs up a n array to a specific function
+	call:call creates an object by pairing up a dictionary or an array with a function within a var.and returns a var created within the object.
+	slice:a method to remove chars or elements from a string or array by their index,takes to int parameters return sub array or string
+	splice:is a method to insert or removes elements in array ,first parameter it takes is the index to start from second is optional and states how many should be 		removed,and after that params that are added are optional and indicate elements to be added or removed.
+	split:a method to split a string into an array takes string parameter as delimiter
+	shift:moves an array one place back
+	join:a method to turn an array into a string takes string parameter to insert between element
+	reverse:reverses an array for example ['a','b','c'].reverse() => ['c','b','a']
+	replace:a method to replace a string within a string
+	filter:a method to filter elements in an array takes a function argument that test values and returns a sub array of the initial array
+	find:a method that pairs up a function with an array or dictionary in order to find a specific element tested by the function
+	reduce:is a method that reduces an array to a single value,takes a function as a parameter that and returns a value that is an accumulation of the elements in  the array
+	prototype:prototype is used to create n instance of an existing object it extends its functions and properties and can be added functions and vars.
+
+replace all A to B
+"ABBBABBBAAA"
+
+answer: x=x.replace(/A/g,'B');
+
+if the meaning was A to B and B to A
+	var x='ABBBABBBAAA';
+	var y =x.split('BBB');
+	var z=y.join(',');
+	x=z.replace(/A/g,'B');
+	y=x.split(',');
+	z=y.join('AAA');
+	console.log(z);
+##################################################################################################################
+7
+Make it work
+
+var arr = ['a', 'b', 'c'];
+for(var a=0;a<arr.length;a++){
+  setTimeout(function(){
+    console.log('a', a, arr[a]);
+  }, 1);
+}
+answer:
+var arr = ['a', 'b', 'c'];
+for(let a=0;a<arr.length;a++){
+  setTimeout(function(){
+    console.log('a', a, arr[a]);
+  }, 1);
+}
+##################################################################################################################
+8
+let obj = {'1': 0, 1: 1, 0: 2};
+alert(obj['1']);
+answer: outpot will be 0
+to make it work:
+let obj = {'one': 0, 1: 1, 0: 2};
+alert(obj['one']);
+##################################################################################################################
+9
+sayHi();
+
+function sayHi() {
+  alert("Hello");
+}
+answer: It will be working because "Hosting". Parser firstly check if exist definition and aftermath execute
+
+##################################################################################################################
+
+10
+let obj = {
+ "0": 1,
+ 0: 2
+};
+
+alert( obj["0"] + obj[0] );
+
+answer:
+declaring an object with number as key and string number as key will result overwriting of the key by the last declaration.
+then if we want seperet keys we will declare :
+let obj = {
+ "zero": 1,
+ 0: 2
+};
+alert( obj["zero"] + obj[0] );
+
+##################################################################################################################
+11
+function func(){
+  var f = function(){
+    return 1;
+  }
+
+  function f(){ return 2; }
+  
+  return f();
+}
+
+console.log(func());
+answer:
+it will be return 1,Because it will be search in global scope. declaration object f with "var" mean it is global scope.
+##################################################################################################################
+12
+var obj = {x:1};
+
+function func(obj){  
+  return obj.x;
+}
+setTimeout(() => {
+  obj.x = 2;
+}, 0);
+
+console.log(func(obj));
+answer:
+It will return 1,Because obj.x is in global scope.setTimeout there are two function and inner "()=>{}" function will search in upper function "setTimeout".
+to make it work:
+	var obj = {x:1};
+
+	function func(obj){  
+	  return obj.x;
+	}
+	function ex(){
+	  obj.x = 2;
+	}
+	var t=setTimeout(ex, 0);
+	clearTimeout(t);	
+	ex();
+	console.log(func(obj));
+##################################################################################################################
+13
+function a(){
+  // 
+}
+console.log(a(1)(2)) // => 3
+console.log(a(1)(2)(3)) // => 6
+
+
+function a(){
+	var x=arguments[0];
+	return function(y) {
+		return function(z=0) {
+				return x + y + z;
+
+		};
+	};
+};
+
+console.log(a(1)(2)(3)) ;
+
+could not make it to work for both cases simultaneously.
+in theory this sould work but console outputs function's code build .
+function a(x) {
+    return function(y) {
+        if (typeof y !== 'undefined') {
+            x = x + y;
+            return arguments.callee;
+        } else {
+            return x;
+        }
+    };
+}
